@@ -1,0 +1,106 @@
+
+/*
+ * Tokyonight colorscheme (big icons) for rofi wallpaper menu
+ */
+
+
+// define colors etc.
+* {
+    // Color palette
+    bg: rgba(26, 27, 38, 0.8);    // Semi-transparent background
+    hv: #7aa2f7;                   // Selection highlight
+    text: #C5C8C6;                 // Primary text
+    foreground: #C5C8C6;           // Primary text
+    accent: #7aa2f7;               // Accent color
+    
+    font: "JetBrains Mono Nerd Font 12";
+    background-color: transparent;
+}
+
+// defines different aspects of the window
+window {
+    width: 100%;
+    margin: 2px; 
+    location: north;
+
+    background-color: @bg;
+    border: 1px;
+    border-color: @accent;
+    border-radius: 4px;
+    children: [ mainbox ];
+}
+
+mainbox {
+    padding: 4px;
+    children: [ inputbar, message, listview ]; // specify children to show and their order
+}
+
+inputbar {
+    border: 0 0 1px 0;              // border bottom
+    border-color: @accent;
+    margin: 0 10px;                 // Creates gap from sides for the border
+    padding: 12px 12px;
+    children: [prompt, entry];      // order of children
+}
+
+prompt {
+    text-color: @accent;
+    padding: 0 0.3em 0 0;
+}
+
+entry {
+    text-color: @text;
+}
+
+listview {
+    lines: 1;
+    columns: 6;
+}
+
+element {
+    orientation: vertical;   // this is necessary for horizontal layout (show text under icon)
+    children : [ element-icon, element-text ];
+}
+
+element-text {
+    // enabled: false;            // uncomment this line to remove wallpaper name under wallpaper
+    border: 1px;
+    border-color: @accent;
+    border-radius: 4px;
+    horizontal-align: 0.5;     // Add this line to center text
+
+    text-color: @text;
+}
+
+element selected.normal {
+    border: 1px;
+    border-color: @accent;
+    background-color: @bg;
+    border-radius: 4px;
+}
+
+element-text selected.normal {
+    horizontal-align: 0.5;     // Add this line to center text
+    background-color: @accent;
+    text-color: #000;
+}
+
+element-icon {
+    // size: 200;        // Change to 200px or size relative to columns number and screen resolution
+    size: 150px;           /* Fixed dimensions (16:9 aspect ratio) */
+}
+
+element-icon selected.normal {
+}
+
+message {
+    // same settings as inputbar
+    padding: 12px 12px;
+    border: 0 0 1px 0;
+    border-color: @accent;
+    margin: 0 10px;                // Creates gap from sides for the border
+}
+
+textbox {
+    text-color: @text; 
+}
