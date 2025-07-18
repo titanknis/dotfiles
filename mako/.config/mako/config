@@ -32,8 +32,3 @@ text-color=#fabd2f
 border-color=#cc241d
 text-color=#fb4934
 default-timeout=0
-
-## Application-specific styling
-# [app-name="Brightness"]
-# border-color=#d65d0e
-# text-color=#fe8019
