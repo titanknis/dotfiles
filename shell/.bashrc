@@ -1,10 +1,10 @@
 # ~/.bashrc - Minimal Bash configuration
 
-# Enable vi keybindings for command-line editing
+# Vi keybindings
 set -o vi
 
-# Source custom aliases
+# Source aliases
 source ~/.aliases
 
-# Initialize zoxide for directory jumping
+# Initialize zoxide
 eval "$(zoxide init bash)"
