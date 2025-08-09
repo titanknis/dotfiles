@@ -4,6 +4,9 @@
 # Template author: theova
 # Commentary: Tinted Theming: (https://github.com/tinted-theming)
 
+c = c  # type: ignore
+config = config  # type: ignore
+
 base00 = "#282828"
 base01 = "#3c3836"
 base02 = "#504945"
@@ -79,12 +82,12 @@ c.colors.contextmenu.disabled.fg = base04
 c.colors.contextmenu.menu.bg = base00
 
 # Foreground color of the context menu. If set to null, the Qt default is used.
-c.colors.contextmenu.menu.fg =  base05
+c.colors.contextmenu.menu.fg = base05
 
 # Background color of the context menu’s selected item. If set to null, the Qt default is used.
 c.colors.contextmenu.selected.bg = base02
 
-#Foreground color of the context menu’s selected item. If set to null, the Qt default is used.
+# Foreground color of the context menu’s selected item. If set to null, the Qt default is used.
 c.colors.contextmenu.selected.fg = base05
 
 # Background color for the download bar.
@@ -299,4 +302,4 @@ c.colors.tabs.selected.even.bg = base02
 
 # Background color for webpages if unset (or empty to use the theme's
 # color).
-# c.colors.webpage.bg = base00
+# c.colors.webpage.bg = base00  # NOTE: uncomment this if websites such as BBC become unreadable with both a dark background and text

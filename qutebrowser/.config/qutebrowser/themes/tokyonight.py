@@ -301,4 +301,4 @@ c.colors.tabs.selected.even.bg = base02
 
 # Background color for webpages if unset (or empty to use the theme's
 # color).
-c.colors.webpage.bg = base00
+c.colors.webpage.bg = base00  # NOTE: uncomment this if websites such as BBC become unreadable with both a dark background and text

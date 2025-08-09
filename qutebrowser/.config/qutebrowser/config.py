@@ -1,17 +1,14 @@
-# Tell qutebrowser not to load any GUI/`:set` settings:
-c = c
-config = config
+c = c  # type: ignore
+config = config  # type: ignore
 
 config.load_autoconfig()
 
 
 # ─── Appearance ────────────────────────────────────────────────────────────────
 
-# TokyoNight Color Scheme for Qutebrowser
-# config.source("themes/tokyonight.py")  # Optional: Save as separate file
-# config.source("themes/tokyonight.py")  # Optional: Save as separate file
+# Color Scheme for Qutebrowser
+# config.source("themes/tokyonight.py")
 config.source("themes/gruvbox.py")
-
 
 c.fonts.default_family = "JetBrains Mono Nerd Font"
 
@@ -25,14 +22,8 @@ c.tabs.show = "multiple"
 
 # Enable dark mode for all webpages (default is False)
 # c.colors.webpage.darkmode.enabled = True
+# Enable dark theme for all webpages (default is light)
 c.colors.webpage.preferred_color_scheme = "dark"
-
-
-# ─── Keybindings ──────────────────────────────────────────────────────────────
-
-# Exit insert mode with Escape (default <Escape> behavior is just to clear any
-# ongoing key sequence; this makes it leave insert mode explicitly)
-# config.bind("<Escape>", "mode-leave", mode="insert")
 
 
 # ─── Hints ────────────────────────────────────────────────────────────────────
@@ -41,27 +32,54 @@ c.colors.webpage.preferred_color_scheme = "dark"
 # c.hints.chars = "asdfghjkl" # qwerty
 c.hints.chars = "arstgmneio"  # colemak-dh
 
-
 # ─── URL / Startup ─────────────────────────────────────────────────────────────
 
 # Set homepage and start page to DuckDuckGo (defaults are about:blank)
-# c.url.start_pages = ["~/.config/qutebrowser/themes/startpage-tokyonight.html"]
-# c.url.default_page = "~/.config/qutebrowser/themes/startpage-tokyonight.html"
-c.url.start_pages = ["~/.config/qutebrowser/themes/gruvbox-startpage.html"]
+# c.url.default_page = ["~/.config/qutebrowser/themes/tokyonight-startpage.html"]
+# c.url.start_pages = ["~/.config/qutebrowser/themes/tokyonight-startpage.html"]
 c.url.default_page = "~/.config/qutebrowser/themes/gruvbox-startpage.html"
+c.url.start_pages = "~/.config/qutebrowser/themes/gruvbox-startpage.html"
 
 
 # ─── Adblocking ────────────────────────────────────────────────────────────────
 
 # # Use both hosts file and adblock lists (default is 'auto')
-# c.content.blocking.method = "both"
-#
-# # Apply community-maintained EasyList and EasyPrivacy (default list is empty)
-# c.content.blocking.adblock.lists = [
-#     "https://easylist.to/easylist/easylist.txt",
-#     "https://easylist.to/easylist/easyprivacy.txt",
-# ]
+c.content.blocking.method = "both"
 
+c.content.blocking.adblock.lists = [
+    # "https://easylist.to/easylist/easylist.txt",
+    # "https://easylist.to/easylist/easyprivacy.txt",
+    # "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt",
+    # add more if needed
+]
+
+# ─── Privacy / Security ────────────────────────────────────────────────────────
+
+# Disable JavaScript by default
+c.content.javascript.enabled = True
+
+# Block all cookies by default
+c.content.cookies.accept = "no-3rdparty"
+
+# Autoplay/media: off
+c.content.autoplay = False
+
+# Disable WebRTC (prevents IP leaks)
+c.content.webrtc_ip_handling_policy = "disable-non-proxied-udp"
+
+# Disable canvas reading (anti-fingerprinting)
+c.content.canvas_reading = True
+
+# Disable geolocation
+c.content.geolocation = False
+# Disable notifications
+c.content.notifications.enabled = False
+
+# Disable clipboard access
+c.content.javascript.clipboard = "ask"
+
+# Disable PDF viewer (open PDFs externally)
+c.content.pdfjs = False
 
 # ─── Scrolling ─────────────────────────────────────────────────────────────────
 
@@ -78,7 +96,7 @@ c.downloads.location.directory = "~/Downloads"
 # ─── External Editor ───────────────────────────────────────────────────────────
 
 # Use Neovim as qutebrowser’s external editor for :edit-text (default editor is vi)
-c.editor.command = ["nvim", "{}"]
+c.editor.command = ["kitty", "nvim", "{}"]
 
 
 # ─── Others ────────────────────────────────────────────────────────────────────
@@ -86,9 +104,8 @@ c.editor.command = ["nvim", "{}"]
 c.url.searchengines = {
     # note - if you use duckduckgo, you can make use of its built in bangs, of which there are many! https://duckduckgo.com/bangs
     "DEFAULT": "https://duckduckgo.com/?q={}",
-    "!ai": "https://duckduckgo.com/?q={}&ia=chat&bang=true",
-    "!duck": "https://duckduckgo.com/?q={}&ia=chat&bang=true",
     "!chat": "https://chatgpt.com/?model=auto&q={}",
+    "!duck": "https://duckduckgo.com/?q={}&ia=chat&bang=true",
     "!google": "https://www.google.com/search?q={}",
     "!yt": "https://www.youtube.com/results?search_query={}",
     "!nixpkgs": "https://search.nixos.org/packages?channel=unstable&query={}",
@@ -106,17 +123,10 @@ c.url.searchengines = {
 #     "filesystem",
 # ]
 
-config.bind("<z><l>", "spawn --userscript qute-pass")
-config.bind("<z><u>", "spawn --userscript qute-pass --username-only")
-config.bind("<z><p>", "spawn --userscript qute-pass --password-only")
-config.bind("<z><o>", "spawn --userscript qute-pass --otp-only")
-
-config.bind(
-    ",p", "spawn --userscript view_in_mpv"
-)  # i am wondering what is better this userscript or just using mpv with a mpv.conf
+# ─── Keybindings ──────────────────────────────────────────────────────────────
 
 # # Bindings for normal mode
-# NOTE: Tip: create and use ~/.config/mpv/mpv.conf ~/.config/yt-dlp/config to simplify these commands and your life
+# NOTE: Tip: create and use ~/.config/mpv/mpv.conf ~/.config/yt-dlp/config to simplify both these commands and your life
 config.bind(";m", "hint links spawn mpv {hint-url}")
 config.bind(",m", "spawn mpv {url}")
 
@@ -138,12 +148,7 @@ config.bind(
     "           spawn kitty -e yt-dlp -x --audio-quality 0 -P '~/Downloads/Youtube/music'  {url}",
 )
 
-# config.bind(
-#     ";m",
-#     "hint links spawn kitty -e yt-dlp -f 'bestvideo+bestaudio/best' -P '~/Downloads/Youtube'  {hint-url}",
-# )
 
-#
 # config.bind("xb", "config-cycle statusbar.show always never")
 # config.bind("xt", "config-cycle tabs.show always never")
 # config.bind(
