@@ -14,6 +14,7 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
+                mountOptions = [ "umask=0077" ];
               };
             };
             luks = {
@@ -62,9 +63,9 @@
               resumeDevice = true; # resume from hiberation from this device
             };
           };
-          vm1 = {
-            size = "64G";
-          };
+          # raw = {
+          #   size = "64G";
+          # };
         };
       };
     };

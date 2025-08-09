@@ -2,32 +2,23 @@
   description = "NixOS configuration";
 
   inputs = {
-    # Add the stable channel
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable channel
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    kmonad = {
-      url = "github:kmonad/kmonad?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
   };
 
   outputs =
     {
       nixpkgs,
       home-manager,
-      kmonad,
       disko,
       ...
     }@inputs:
@@ -47,15 +38,12 @@
               ;
           };
           modules = [
-            # Your machine's configuration.nix
-            ./hosts/${hostname}/default.nix
+            # Machine's configuration.nix
+            ./hosts/${hostname}/configuration.nix
 
             # Other modules
-            disko.nixosModules.disko
-            kmonad.nixosModules.default
-
-            # Home-manager configuration
             home-manager.nixosModules.home-manager
+            disko.nixosModules.disko
             {
               home-manager.extraSpecialArgs = {
                 inherit
@@ -68,15 +56,28 @@
               home-manager.useUserPackages = true;
               home-manager.users.${username} = import ./hosts/${hostname}/home.nix;
 
+              # The state version is required and should stay at the version you
+              # originally installed.
               system.stateVersion = "25.05"; # Did you read the comment?
+              # system.stateVersion = "25.11"; # Did you read the comment?
             }
           ];
         };
     in
     {
       nixosConfigurations = {
-        default = mkHost {
-          hostname = "default";
+        asus = mkHost {
+          hostname = "asus";
+          username = "titanknis";
+        };
+
+        hp = mkHost {
+          hostname = "hp";
+          username = "titanknis";
+        };
+
+        usb = mkHost {
+          hostname = "usb";
           username = "titanknis";
         };
 
@@ -84,12 +85,6 @@
           hostname = "vm";
           username = "titanknis";
         };
-
-        # Add more hosts as needed
-        # hostname = mkHost {
-        #   hostname = "hostname";
-        #   username = "username";
-        # };
       };
     };
 }
