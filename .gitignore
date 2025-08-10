@@ -1,4 +1,3 @@
-nixos/nixos/flake.lock
 qutebrowser/.config/qutebrowser/autoconfig.yml
 qutebrowser/.config/qutebrowser/quickmarks
 qutebrowser/.config/qutebrowser/bookmarks/
