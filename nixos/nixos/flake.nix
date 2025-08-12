@@ -23,20 +23,12 @@
       ...
     }@inputs:
     let
-      system = "x86_64-linux";
       # This helper function takes all the inputs we need for a host
       mkHost =
         { hostname, username }:
         nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit
-              inputs
-              system
-              username
-              hostname
-              ;
-          };
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs hostname username; };
           modules = [
             # Machine's configuration.nix
             ./hosts/${hostname}/configuration.nix
@@ -45,21 +37,13 @@
             home-manager.nixosModules.home-manager
             disko.nixosModules.disko
             {
-              home-manager.extraSpecialArgs = {
-                inherit
-                  username
-                  inputs
-                  hostname
-                  ;
+              home-manager = {
+                extraSpecialArgs = { inherit inputs hostname username; };
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.${username} = import ./hosts/${hostname}/home.nix;
               };
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${username} = import ./hosts/${hostname}/home.nix;
-
-              # The state version is required and should stay at the version you
-              # originally installed.
               system.stateVersion = "25.05"; # Did you read the comment?
-              # system.stateVersion = "25.11"; # Did you read the comment?
             }
           ];
         };
