@@ -7,10 +7,10 @@
 {
   # Disable the OpenSSH daemon
   services.openssh = {
-    enable = false;
+    enable = true;
     settings = {
       PasswordAuthentication = false; # Force key-based auth
-      PermitRootLogin = "no"; # Disable root login
+      # PermitRootLogin = "no"; # Disable root login
       KbdInteractiveAuthentication = false;
     };
   };
