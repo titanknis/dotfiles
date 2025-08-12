@@ -76,11 +76,6 @@
           username = "titanknis";
         };
 
-        usb = mkHost {
-          hostname = "usb";
-          username = "titanknis";
-        };
-
         vm = mkHost {
           hostname = "vm";
           username = "titanknis";
