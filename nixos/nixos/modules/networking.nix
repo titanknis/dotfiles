@@ -14,9 +14,7 @@
     enable = true;
 
     # Open ports in the firewall
-    allowedTCPPorts = [
-      # 22 # SSH
-    ];
+    allowedTCPPorts = [ ];
 
     allowedUDPPorts = [ ];
 
